@@ -1,0 +1,65 @@
+{
+  "signupUsersList": [
+    {
+      "email": "haresh@gmail.com",
+      "password": "haresh1234"
+    },
+    {
+      "email": "john56@gmail.com",
+      "password": "john1234"
+    },
+    {
+      "email": "peter23@gmail.com",
+      "password": "peter1234"
+    },
+    {
+      "email": "vijay85@gmail.com",
+      "password": "vijay1234"
+    }
+  ],
+  "offficeHierarchyMap": [
+    {
+      "level": "aaaa",
+      "id": 1
+    },
+    {
+      "level": "bbbb",
+      "id": 2
+    },
+    {
+      "level": "cccc",
+      "id": 3
+    },
+    {
+      "level": "dddd",
+      "id": 4
+    },
+    {
+      "level": "eeee",
+      "id": 5
+    }
+  ],
+  "tableRecord": [
+    {
+      "aaaa": "aaaa",
+      "bbbb": "bbbb",
+      "cccc": "cccc",
+      "dddd": "dddd",
+      "eeee": "eeee",
+      "address": "tjncgbnf",
+      "officeName": "vsdvd",
+      "id": 2,
+      "level": "dddd"
+    },
+    {
+      "aaaa": "aaaa",
+      "bbbb": "bbbb",
+      "cccc": "cccc",
+      "dddd": "dddd",
+      "eeee": "eeee",
+      "address": "zrhhsv segwgw",
+      "officeName": "dfnxdnjt",
+      "id": 3
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+<h2>Offices</h2>
+<br>
+<div class="card border-0 rounded-0">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Office Hierarchy</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Office Location</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <!--------------- Office Hierarchy --------------->
+        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+            tabindex="0">
+            <div class="card tab-card">
+                <div class="card-header"> Your Office Hierarchy Map </div>
+                <div class="card-body pt-0">
+                    <div class="grid">
+                        <div class="grid-item" *ngFor="let item of officeLevelForm; let i=index">
+                            <p>Level {{i+1}}</p>
+                            <div class="cards-section">
+                                <div class="cards">{{item.level}}</div>
+                                <i class="bi bi-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <span> Action </span>
+                    <span><i class="bi bi-pencil" data-bs-toggle="offcanvas" data-bs-target="#SetOfficeHierarchy"
+                            aria-controls="SetOfficeHierarchy"></i></span>
+                    <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button> -->
+                </div>
+            </div>
+        </div>
+        <!--------------- Office Location --------------->
+        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <div class="card border-0">
+                <div class="card-header d-flex justify-content-end pt-3"><button class="btn add-location-btn mb-0"
+                        data-bs-toggle="offcanvas" data-bs-target="#AddOfficeLocation"
+                        aria-controls="SetOfficeHierarchy"><i class="bi bi-plus-lg"></i></button>
+                </div>
+                <div class="card-body pt-2">
+                    <div class="table-responsive">
+                        <table class="table office-list-table">
+                            <thead>
+                                <tr>
+                                    <th *ngFor="let item of officeLevelForm">{{item.level}}</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dataRecord of tableRecord; let i = index">
+                                    <td *ngFor="let item of officeLevelForm">{{item.level}}</td>
+                                    <td>{{dataRecord['address']}}</td>
+                                    <td class="min-width-auto">
+                                        <div class="action-btnd-group">
+                                            <i class="bi bi-pencil" data-bs-toggle="offcanvas"
+                                                data-bs-target="#editTableData"
+                                                (click)="filleditRecord(dataRecord, dataRecord['id'])"></i>
+                                            <i class="bi bi-trash3 delete-btn" (click)="deleteRecord(i)"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--========================== Offcanvas For Set Office Hierarchy ==========================-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="SetOfficeHierarchy" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h4 id="offcanvasRightLabel">Set Office Hierarchy</h4>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <!------------------------------------------------->
+    <div class="offcanvas-body">
+        <ng-container *ngFor="let item of officeLevelForm; let i = index;">
+            <label class="input-fileds-lables">Level {{i + 1}}</label>
+            <div class="input-field-group">
+                <input type="text" placeholder="Enter Value" name="level" [(ngModel)]="item.level">
+                <button class="btn btn-danger close-btn" *ngIf="i > 0" (click)="removeAddress(i)">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </ng-container>
+        <button class="btn btn-success add-btn" (click)="addAddress()"><i class="bi bi-plus-lg"></i></button>
+    </div>
+    <div class="offcanvas-footer">
+        <button class="btn btn-success me-2" (click)="getOfficeLevel()">Save</button>
+        <button class="btn btn-secondary" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+    </div>
+</div>
+<!--========================== edit offcanvas ==========================-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="editTableData" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h4 id="offcanvasRightLabel">Edit Office Location</h4>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <label class="input-fileds-lables">Select Level</label>
+        <div class="input-field-group">
+            <select class="select-box" [(ngModel)]="editLocation.level" (change)="checkOfficeValidation()">
+                <option [ngValue]="item.level" *ngFor="let item of officeLevelForm">{{item.level}}</option>
+            </select>
+        </div>
+        <label class="input-fileds-lables">Office Name (Level)</label>
+        <div class="input-field-group">
+            <input type="text" placeholder="Enter Office Name" [(ngModel)]="editLocation.officeName"
+                (keyup)="checkOfficeValidation()">
+        </div>
+        <label class="input-fileds-lables">Address</label>
+        <div class="input-field-group">
+            <textarea placeholder="Enter Address" rows="2" [(ngModel)]="editLocation.address"></textarea>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <button class="btn btn-success me-2" (click)="editRecord()">Save</button>
+        <button class="btn btn-secondary" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+    </div>
+</div>
+<!--========================== Offcanves For Add Office Location ==========================-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="AddOfficeLocation" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h4 id="offcanvasRightLabel">Add Office Location</h4>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <label class="input-fileds-lables">Select Level</label>
+        <div class="input-field-group">
+            <select class="select-box" [(ngModel)]="addLocation.level" (change)="checkOfficeValidation()">
+                <option [ngValue]="item.level" *ngFor="let item of officeLevelForm">{{item.level}}</option>
+            </select>
+        </div>
+        <label class="input-fileds-lables">Office Name (Level)</label>
+        <div class="input-field-group">
+            <input type="text" placeholder="Enter Office Name" [(ngModel)]="addLocation.officeName"
+                (keyup)="checkOfficeValidation()">
+        </div>
+        <label class="input-fileds-lables">Address</label>
+        <div class="input-field-group">
+            <textarea placeholder="Enter Address" rows="2" [(ngModel)]="addLocation.address"></textarea>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <button class="btn btn-success me-2" (click)="addOfficeLocation()"
+            [disabled]="!isValidateLocation">Save</button>
+        <button class="btn btn-secondary" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+    </div>
+</div>

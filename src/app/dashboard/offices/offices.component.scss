@@ -1,0 +1,351 @@
+@mixin flex-box($content, $align) {
+    display: flex;
+    justify-content: $content;
+    align-items: $align;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.nav-tabs {
+    // margin-left: 20px;
+    padding: 0 20px;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    position: relative;
+    color: #29af8e;
+}
+
+.nav-tabs .nav-item.show .nav-link::before,
+.nav-tabs .nav-link.active::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: #29af8e;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-tabs .nav-link .nav-item::before,
+.nav-tabs .nav-link .nav-item::after {
+    outline: none;
+    border: none;
+}
+
+.nav-link:focus-visible {
+    outline: 0;
+    box-shadow: none;
+}
+
+.nav-tabs .nav-link {
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    border: 0;
+    padding: 15px;
+}
+
+.tab-content {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.tab-card {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-color: rgb(209, 209, 209);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: none;
+    color: rgb(75, 75, 75);
+    font-size: 30px !important;
+}
+
+.grid {
+    // flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+}
+
+.grid-item {
+    // display: grid;
+    // flex-flow: row wrap;
+    // grid-template-columns: repeat(5, 20%);
+    margin: 0 5px;
+
+    p {
+        font-weight: bold;
+        font-size: 20px;
+        margin: 20px 0 10px 0;
+    }
+
+    .cards-section {
+        display: grid;
+        grid-template-columns: auto max-content;
+        align-items: center;
+        width: 100%;
+
+        .cards {
+            color: #F8B25D;
+            background-color: #FEF1E0;
+            padding: 40px 0;
+            font-size: 25px;
+            font-weight: 600;
+            @include flex-box(center, center);
+            border: 1px solid rgb(255 230 201);
+            border-radius: 10px;
+        }
+
+        i {
+            font-size: 25px;
+            margin-left: 5px;
+            color: #29af8e;
+        }
+    }
+}
+
+.card-footer {
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    padding: 0;
+    background-color: transparent;
+
+    span {
+        font-weight: 500;
+        font-size: 20px;
+        color: #000;
+        padding: 15px 20px;
+        border-right: 1px solid rgb(209, 209, 209);
+
+        &:last-child {
+            border: 0;
+        }
+
+        i {
+            display: inline-block;
+            width: 35px !important;
+            height: 35px;
+            border-radius: 50px;
+            @include flex-box(center, center);
+            transition: all 0.2s ease-in-out;
+        }
+
+        i:is(:hover, :focus, :active) {
+            color: #29af8e;
+            cursor: pointer;
+            background-color: #29af8d10;
+        }
+    }
+}
+
+/*================ for Office tab ================*/
+.add-location-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #29af8e;
+    color: #FFF;
+
+    &:is(:focus) {
+        background-color: #29af8d2d;
+        color: #29af8e;
+        border-color: #29af8e;
+    }
+}
+
+.office-list-table {
+    thead {
+        tr {
+            border-top: 1px solid #dee2e6;
+
+            th {
+                background-color: #edf9f7;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                min-width: 170px;
+                max-width: auto;
+            }
+        }
+
+        .min-width-auto {
+            min-width: 10px !important;
+            max-width: max-content;
+        }
+    }
+}
+
+.action-btnd-group {
+    @include flex-box(flex-start, center);
+
+    i {
+        font-size: 17px;
+        color: #000;
+        margin-right: 15px;
+        width: 30px;
+        height: 30px;
+        @include flex-box(center, center);
+        border-radius: 50px;
+        transition: all 0.3s ease-in-out;
+
+        &:is(:hover, :focus) {
+            background-color: #29af8d15;
+            cursor: pointer;
+            color: #29af8e;
+        }
+    }
+
+    .delete-btn:is(:hover, :focus) {
+        background-color: #af292915;
+        cursor: pointer;
+        color: #af2d29;
+    }
+}
+
+::ng-deep .offcanvas-backdrop.show {
+    opacity: 0 !important;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+.offcanvas.offcanvas-end {
+    width: 600px !important;
+}
+
+.input-fileds-lables {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.input-field-group {
+    @include flex-box(center, center);
+
+    input,
+    .select-box,
+    textarea {
+        height: 60px;
+        width: 100%;
+        padding: 10px 10px 10px 20px;
+        margin-right: 10px;
+        background: #eff7f9;
+        border: 0;
+        border: 1px solid #f1f1f1;
+        border-radius: 5px;
+
+        &:focus {
+            outline-color: #29af8e !important;
+        }
+    }
+
+    .select-box::-ms-expand {
+        margin-right: 20px;
+    }
+
+    .close-btn {
+        min-width: 60px;
+        height: 60px;
+        background-color: #ea7a86;
+        border-color: #ea7a86;
+        @include flex-box(center, center);
+
+        &:focus {
+            border-color: #ea7a86;
+            background-color: #ea7a8556;
+            color: #ea7a86;
+        }
+    }
+}
+
+.add-btn {
+    min-width: 60px;
+    height: 60px;
+    background-color: #29af8e;
+    border-color: #29af8e;
+    @include flex-box(center, center);
+    margin: 20px 0;
+
+    &:focus,
+    &:active {
+        background-color: rgb(6, 144, 109) !important;
+        color: #ffffff;
+        border: none;
+    }
+}
+
+.offcanvas-footer {
+    border-top: 1px solid rgb(209, 209, 209);
+    padding: 10px 15px;
+
+    button {
+        padding: 10px 25px;
+        font-size: 20px;
+    }
+
+    .btn-success {
+        background-color: #14b98e;
+        border-color: #14b98e;
+
+        &:focus,
+        &:active {
+            background-color: rgb(6, 144, 109) !important;
+            color: #ffffff;
+        }
+    }
+
+    .btn-secondary {
+        background-color: #e5f0f4;
+        border-color: #e5f0f4;
+        color: #000;
+
+        &:focus {
+            background-color: #ea7a86;
+            border-color: #ea7a86;
+            color: #fff;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1366px) {
+
+    .grid,
+    .card-footer {
+        grid-template-columns: repeat(4, 25%);
+    }
+}
+
+@media screen and (max-width: 1280px) {
+
+    .grid,
+    .card-footer {
+        grid-template-columns: repeat(3, 33.33%);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .grid,
+    .card-footer {
+        grid-template-columns: repeat(2, 50%);
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .grid {
+        display: block;
+    }
+}
